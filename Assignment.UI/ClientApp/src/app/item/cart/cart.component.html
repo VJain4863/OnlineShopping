@@ -1,0 +1,29 @@
+<table class="table table-bordered">
+    <thead>
+       <tr style="text-align: center; background-color: aqua;">
+          <th>S.No</th>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Product Category</th>
+          <th>Product Price</th>
+          <th></th>
+       </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor="let list of cartList,let y=index">
+        <td>{{y+1}}</td>
+        <td><img src="{{list.productImage}}" class="img-responsive" style="border-radius:50%; width:120px; height: 120px;" alt="Image"></td>
+        <td>{{list.productName}}</td>
+        <td>{{list.productCategory}}</td>
+        <td>{{list.productPrice |currency:'INR'}}</td>
+        <td><button (click)="singlePlaceOrder(list.productId)"> Order Now</button></td>
+      </tr>   
+    </tbody>
+</table>
+<div class="grandTotal" style="text-align: end; padding: 10px 230px 0px 0px;">
+    <b>Grand Total : {{totalPrice |currency:'INR'}}</b>
+</div>
+
+<div class="grandTotal" style="text-align: center;">
+    <button (click)="entirePlaceOrder()">Place All Order</button>
+</div>

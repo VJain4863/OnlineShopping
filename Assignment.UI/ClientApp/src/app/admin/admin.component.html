@@ -1,0 +1,94 @@
+<div class="container">    
+   <div class="row">
+     <div class="col-sm-4">
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center;">Users: <span class="glyphicon glyphicon-user"></span></div>
+         <div class="panel-body">
+            Total Count : {{usersCount}}
+            <br>
+            Males: {{maleCount}}    Female: {{femaleCount}}
+         </div>       
+       </div>
+     </div>
+     <div class="col-sm-4"> 
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center">Products: <span class="glyphicon glyphicon-th-list"></span></div>
+         <div class="panel-body">Total Count : {{productCount}} <br><br></div>
+       </div>
+     </div>
+     <div class="col-sm-4"> 
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center">Categories: <span class="glyphicon glyphicon-th-large"></span></div>
+         <div class="panel-body">Total Count : {{categoriesCount}} <br><br></div>
+       </div>
+     </div>
+   </div>   
+   <div class="row">
+    <div class="col-sm-3">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="text-align: center;">Orders In Cart: <span class="glyphicon glyphicon-shopping-cart"></span></div>
+        <div class="panel-body">
+          Total Count: {{ordersAdded}}
+          <br>
+        </div>
+      </div>
+    </div>
+     <div class="col-sm-3">
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center;">Orders Placed : <span class="glyphicon glyphicon-ok"></span></div>
+         <div class="panel-body">
+          Total Count: {{ordersPlaced}}
+          <br>
+         </div>
+       </div>
+     </div>
+     <div class="col-sm-3"> 
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center;">Orders Shipped : <span class="glyphicon glyphicon-plane"></span></div>
+         <div class="panel-body">
+          Total Count: {{ordersShipped}}
+          <br>
+          </div>
+       </div>
+     </div>
+     <div class="col-sm-3"> 
+       <div class="panel panel-primary">
+         <div class="panel-heading" style="text-align: center;">Orders Delivered : <span class="glyphicon glyphicon-road"></span></div>
+         <div class="panel-body">
+          Total Count: {{ordersDelievered}}
+          <br> 
+         </div>
+       </div>
+     </div>
+   </div>
+</div>
+ <br><br>
+
+
+<table class="table table-bordered">
+   <thead>
+      <tr style="text-align: center; background-color: aqua;">
+         <th>Product Added on {{todayDate}}</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr *ngFor="let product of products"> {{product.productName}} made in {{product.productCountry}}  with the base price of {{product.productPrice}} under the category of {{product.productCategory}}</tr>
+   </tbody>
+</table>
+
+<!-- <div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+          <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                      Earnings (Monthly)</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+              </div>
+              <div class="col-auto">
+                  <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
+          </div>
+      </div>
+  </div>
+</div> -->

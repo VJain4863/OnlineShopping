@@ -1,0 +1,35 @@
+<table class="table table-bordered">
+    <thead>
+       <tr style="text-align: center; background-color: aqua;">
+          <th>S.No</th>
+          <th>Product Name</th>
+          <th>Product Image</th>
+          <th>Product Category</th>
+          <th>product Price</th>
+          <th>User</th>
+          <th>Product Status</th>
+          <th></th>
+       </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor="let cart of cartList,let y=index">
+        <td>{{y+1}}</td>
+        <td>{{cart.productName}}</td>
+        <td><img src="{{cart.productImage}}" class="img-responsive" style="border-radius:50%; width:120px; height: 120px;" alt="Image"></td>
+        <td>{{cart.productCategory}}</td>
+        <td>{{cart.productPrice}}</td>
+        <td>{{cart.userName}}</td>
+        <td>{{cart.cartStatus}}</td>
+        <td>
+          <div *ngIf="cart.cartStatus=='Added'">
+            <button (click)="changeStatus(cart.productId, cart.cartStatus)">Sent it for Shippment</button>
+          </div>
+          <div *ngIf="cart.cartStatus=='Shipped'">
+            <button (click)="changeStatus(cart.productId, cart.cartStatus)">Mark it delievered</button>
+          </div>
+          
+        </td>
+        <!-- <td><button (click)="editUser(user.username)">Edit</button></td> -->
+      </tr>   
+    </tbody>
+</table>

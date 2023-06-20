@@ -1,0 +1,51 @@
+<table class="table table-bordered">
+  <thead>
+     <tr style="text-align: center; background-color: aqua;">
+        <th>Computer Lists</th>
+     </tr>
+  </thead>
+  <tbody> 
+    <tr *ngFor="let x of productList,let y=index">
+      <div class="container">    
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">{{productList[y][0].productName}}</div>
+              <div class="panel-body">
+                <img src="{{productList[y][0].productImage}}" class="img-responsive" style="border-radius:50%; width:120px; height: 120px;" alt="Image">
+                <b>Price:-</b>  {{productList[y][0].productPrice}}
+                <br>
+                <b>Product Description:- </b>{{productList[y][0].productDescription}}
+              </div>
+              <div class="panel-footer">Add to cart</div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="productList[y][1]"> 
+            <div class="panel panel-primary">
+              <div class="panel-heading">{{productList[y][1].productName}}</div>
+              <div class="panel-body">
+                <img src="{{productList[y][1].productImage}}" class="img-responsive" style="border-radius:50%; width:120px; height: 120px;" alt="Image">
+                <b>Price:-</b>  {{productList[y][1].productPrice}}
+                <br>
+                <b>Product Description:- </b>{{productList[y][1].productDescription}}
+              </div>
+              <div class="panel-footer">Add to cart</div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="productList[y][2]"> 
+            <div class="panel panel-primary">
+              <div class="panel-heading">{{productList[y][2].productName}}</div>
+              <div class="panel-body">
+                <img src="{{productList[y][2].productImage}}" class="img-responsive" style="border-radius:50%; width:120px; height: 120px;"alt="Image">
+                <b>Price:-</b>  {{productList[y][2].productPrice}}
+                <br>
+                <b>Product Description:- </b>{{productList[y][2].productDescription}}
+              </div>
+              <div class="panel-footer">Add to cart</div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </tr>   
+  </tbody>
+</table>
