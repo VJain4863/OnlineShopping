@@ -37,7 +37,7 @@ namespace Assignment.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), (int)HttpStatusCode.Created)]
         [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        public async Task<IActionResult> Post([FromBody] CreateCartDTO model)
+        public async Task<IActionResult> Post(int id, [FromBody] CreateCartDTO model)
         {
             try
             {
@@ -98,13 +98,13 @@ namespace Assignment.Controllers
         //     }
         // }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(CartDTO), (int)HttpStatusCode.OK)]
+        [HttpPut]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
         [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        public IActionResult Update(string cartStatus , int id)
+        public async Task<ActionResult> Put(int id, [FromBody] CreateCartDTO data)
         {
-         try{
-                var query = new UpdateCartByIdQuery(cartstatus,id);
+            try{
+                var query = new UpdateCartByIdQuery(data);
                 var response = await _mediator.Send(query);
                 return Ok(response);
             }

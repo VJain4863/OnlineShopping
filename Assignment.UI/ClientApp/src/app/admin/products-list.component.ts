@@ -26,8 +26,9 @@ export class ProductsListComponent implements OnInit {
     }); 
   }
 
-  changeStatus(productId:any, cartStatus:string){
-    console.log("Status is ", cartStatus);
-    this.cartService.updateCart(cartStatus,productId);
+  changeStatus(cartDetail:Cart, productId:any){
+    // const data = {pId : productId , cStatus :cartStatus}
+    console.log("Status is ", cartDetail);
+    this.cartService.updateCart(cartDetail, productId);
   }
 }

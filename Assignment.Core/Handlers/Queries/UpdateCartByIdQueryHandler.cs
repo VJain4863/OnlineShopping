@@ -1,46 +1,64 @@
-
 using MediatR;
-using Assignment.Contracts.DTO;
 using Assignment.Contracts.Data;
+using Assignment.Contracts.DTO;
+using Assignment.Contracts.Data.Entities;
+using FluentValidation;
+using System.Text.Json;
 using Assignment.Core.Exceptions;
-using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace Assignment.Providers.Handlers.Queries
 {
-    public class UpdateCartByIdQuery : IRequest<AppDTO>
+    public class UpdateCartByIdQuery : IRequest<int>
     {
-        
-       
+        public CreateCartDTO Model { get; }
+        public UpdateCartByIdQuery(CreateCartDTO model)
+        {
+            this.Model = model;
+        }
+     
     }
 
-    public class UpdateCartByIdQueryHandler : IRequestHandler<UpdateCartByIdQuery, CartDTO>
+    public class UpdateCartByIdQueryHandler : IRequestHandler<UpdateCartByIdQuery, int>
     {
         private readonly IUnitOfWork _repository;
-        private readonly IMapper _mapper;
+        private readonly IValidator<CreateCartDTO> _validator;
 
-        public UpdateCartByIdQuery(IUnitOfWork repository, IMapper mapper)
+        public UpdateCartByIdQueryHandler(IUnitOfWork repository, IValidator<CreateCartDTO> validator)
         {
             _repository = repository;
-            _mapper = mapper;
+            _validator = validator;
         }
 
-        public async Task<CartDTO> Handle(string cartStatus, int productId, CancellationToken cancellationToken)
-        {
-            var courseToUpdate = await _repository.Cart.FirstOrDefaultAsync(c => c.ProductId == ProductId); 
-if (await TryUpdateModelAsync<CartDTO>(courseToUpdate, "", c=>c.cartStatus)) 
-{ 
-    try { await _repository.SaveChangesAsync(); } 
-    catch (DbUpdateException /* ex */) 
-    { 
-        //Log the error (uncomment ex variable name and write a log.) ModelState.AddModelError("", "Unable to save changes. " + 
-    //
-    //"Try again, and if the problem persists, " + "see your system administrator."); } return RedirectToAction(nameof(Index)); } 
-    //PopulateDepartmentsDropDownList(courseToUpdate.DepartmentID); return View(courseToUpdate); 
-    
-}
-           
+        public async Task<int> Handle(UpdateCartByIdQuery request, CancellationToken cancellationToken)
+        {  
+            CreateCartDTO model = request.Model;
+            var result = _validator.Validate(model);
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(x => x.ErrorMessage).ToArray();
+                throw new InvalidRequestBodyException
+                {
+                    Errors = errors
+                };
+            }
+            var entity = new Cart
+            {
+                Id= model.Id,
+                ProductId = model.ProductId,
+                ProductName = model.ProductName,
+                ProductCategory = model.ProductCategory,
+                ProductPrice = model.ProductPrice,
+                CartStatus = model.CartStatus,
+                ProductQuantity = model.ProductQuantity,
+                ProductImage = model.ProductImage,
+                UserName=model.UserName
+            };
+            _repository.Cart.Update(entity);
+            await _repository.CommitAsync();
 
-            return _mapper.Map<CartDTO>(app);
+            return entity.Id;
+
         }
     }
 }

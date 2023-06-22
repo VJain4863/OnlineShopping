@@ -22,10 +22,10 @@
         <td>{{cart.cartStatus}}</td>
         <td>
           <div *ngIf="cart.cartStatus=='Added'">
-            <button (click)="changeStatus(cart.productId, cart.cartStatus)">Sent it for Shippment</button>
+            <button (click)="changeStatus(cart, cart.productId)">Sent it for Shippment</button>
           </div>
           <div *ngIf="cart.cartStatus=='Shipped'">
-            <button (click)="changeStatus(cart.productId, cart.cartStatus)">Mark it delievered</button>
+            <button (click)="changeStatus(cart, cart.productId)">Mark it delievered</button>
           </div>
           
         </td>

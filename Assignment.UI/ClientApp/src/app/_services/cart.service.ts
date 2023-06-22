@@ -45,9 +45,19 @@ export class CartService {
         return this.http.delete<number>(`${environment.apiUrl}/api/Cart/`+id);
         //return this.http.delete<number>(`${environment.apiUrl}/api/Cart`,{params:{id}});
     }
-    public updateCart(data:any, id: number):Observable<any> {
-        console.log("Inside service",data,"for product Id",id);
-        return this.http.patch<Cart[]>(`${environment.apiUrl}/api/Cart/${id}`,data);
+    public updateCart(cartDetail:Cart, id: number):Observable<any> {
+        this.cart.id = cartDetail.id;
+        this.cart.productCategory = cartDetail.productCategory;
+        this.cart.productPrice = cartDetail.productPrice?.toString();
+        this.cart.productName = cartDetail.productName;
+        this.cart.cartStatus = (cartDetail.cartStatus =="Added") ? "Shipped":"Delievered";
+        this.cart.productQuantity = 1;
+        this.cart.productImage = cartDetail.productImage;
+        this.cart.userName = cartDetail.userName;
+        this.cart.productId = cartDetail.id;
+        // console.log("Inside service",data,"for product Id",id);
+        console.log("Vlue now",this.cart);
+        return this.http.put<any>(`${environment.apiUrl}/api/Cart?id=${id}`,this.cart);
     }
  
 }
