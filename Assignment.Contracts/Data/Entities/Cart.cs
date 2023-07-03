@@ -17,5 +17,9 @@ namespace Assignment.Contracts.Data.Entities
         public int ProductQuantity { get; set; }
         public string ProductImage {get;set;}
         public string UserName {get; set;}
+        public string ProductCartAdd {get; set;}
+        public string ProductCartShipped {get;set;}
+        public string ProductCartPlaced {get;set;}
+        public string ProductCartDispatch {get;set;}
     }
 }

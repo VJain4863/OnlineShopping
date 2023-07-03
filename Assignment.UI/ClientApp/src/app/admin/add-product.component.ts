@@ -85,7 +85,7 @@ export class AddProductComponent implements OnInit {
         this.productService.registerProduct(this.form.value)
             .subscribe({
                 next: () => {
-                    this.alertService.success('Project detail saved', { keepAfterRouteChange: true });
+                    this.alertService.success('New Product Added', { keepAfterRouteChange: true });
                     this.router.navigateByUrl('/admin');
                 },
                 error: (error: any) => {

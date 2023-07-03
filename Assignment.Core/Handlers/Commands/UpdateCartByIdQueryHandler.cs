@@ -9,32 +9,31 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Assignment.Providers.Handlers.Commands
 {
-    public class CreateCartCommand : IRequest<int>
+    public class UpdateCartByIdQuery : IRequest<int>
     {
         public CreateCartDTO Model { get; }
-        public CreateCartCommand(CreateCartDTO model)
+        public UpdateCartByIdQuery(CreateCartDTO model)
         {
             this.Model = model;
         }
+     
     }
 
-    public class CreateCartCommandHandler : IRequestHandler<CreateCartCommand, int>
+    public class UpdateCartByIdQueryHandler : IRequestHandler<UpdateCartByIdQuery, int>
     {
         private readonly IUnitOfWork _repository;
         private readonly IValidator<CreateCartDTO> _validator;
 
-        public CreateCartCommandHandler(IUnitOfWork repository, IValidator<CreateCartDTO> validator)
+        public UpdateCartByIdQueryHandler(IUnitOfWork repository, IValidator<CreateCartDTO> validator)
         {
             _repository = repository;
             _validator = validator;
         }
 
-        public async Task<int> Handle(CreateCartCommand request, CancellationToken cancellationToken)
-        {
+        public async Task<int> Handle(UpdateCartByIdQuery request, CancellationToken cancellationToken)
+        {  
             CreateCartDTO model = request.Model;
-
             var result = _validator.Validate(model);
-
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(x => x.ErrorMessage).ToArray();
@@ -43,10 +42,9 @@ namespace Assignment.Providers.Handlers.Commands
                     Errors = errors
                 };
             }
-
-
             var entity = new Cart
             {
+                Id= model.Id,
                 ProductId = model.ProductId,
                 ProductName = model.ProductName,
                 ProductCategory = model.ProductCategory,
@@ -60,10 +58,10 @@ namespace Assignment.Providers.Handlers.Commands
                 ProductCartPlaced = model.ProductCartPlaced,
                 ProductCartDispatch = model.ProductCartDispatch
             };
-            _repository.Cart.Add(entity);
+            _repository.Cart.Update(entity);
             await _repository.CommitAsync();
-
             return entity.Id;
         }
     }
 }
+

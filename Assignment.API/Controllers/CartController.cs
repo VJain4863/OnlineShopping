@@ -55,56 +55,33 @@ namespace Assignment.Controllers
             }
         }
 
-        // [HttpGet]
-        // [Route("{id}")]
-        // [ProducesResponseType(typeof(CartDTO), (int)HttpStatusCode.OK)]
-        // [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        // public async Task<IActionResult> GetById(int id)
-        // {
-        //     try
-        //     {
-        //         var query = new GetAppByIdQuery(id);
-        //         var response = await _mediator.Send(query);
-        //         return Ok(response);
-        //     }
-        //     catch (EntityNotFoundException ex)
-        //     {
-        //         return NotFound(new BaseResponseDTO
-        //         {
-        //             IsSuccess = false,
-        //             Errors = new string[] { ex.Message }
-        //         });
-        //     }
-        // }
-
-        // [HttpDelete]
-        // [Route("{id}")]
-        // [ProducesResponseType(typeof(CartDTO), (int)HttpStatusCode.OK)]
-        // [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        // public async Task<IActionResult> Delete(int id)
-        // {
-        //     try{
-        //         var query = new DeleteCartByIdQuery(id);
-        //         var response = await _mediator.Send(query);
-        //         return Ok(response);
-        //     }
-        //     catch (EntityNotFoundException ex)
-        //     {
-        //         return NotFound(new BaseResponseDTO
-        //         {
-        //             IsSuccess = false,
-        //             Errors = new string[] { ex.Message }
-        //         });
-        //     }
-        // }
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(CartDTO), (int)HttpStatusCode.OK)]
+        [ProducesErrorResponseType(typeof(BaseResponseDTO))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var query = new DeleteCartByIdQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new BaseResponseDTO
+                {
+                    IsSuccess = false,
+                    Errors = new string[] { ex.Message }
+                });
+            }
+        }
 
         [HttpPut]
-        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
-        [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        public async Task<ActionResult> Put(int id, [FromBody] CreateCartDTO data)
+        public async Task<IActionResult> Put([FromBody] CreateCartDTO model)
         {
             try{
-                var query = new UpdateCartByIdQuery(data);
+                var query = new UpdateCartByIdQuery(model);
                 var response = await _mediator.Send(query);
                 return Ok(response);
             }

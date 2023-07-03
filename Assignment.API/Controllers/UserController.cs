@@ -78,15 +78,15 @@ namespace Assignment.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(UserDTO), (int)HttpStatusCode.OK)]
         [ProducesErrorResponseType(typeof(BaseResponseDTO))]
-        public async Task<IActionResult> GetByUserName(string userName)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var query = new GetUserByUserNameQuery(userName);
+                var query = new DeleteUserByIdQuery(id);
                 var response = await _mediator.Send(query);
                 return Ok(response);
             }
@@ -99,5 +99,47 @@ namespace Assignment.Controllers
                 });
             }
         }
+
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(UserDTO), (int)HttpStatusCode.OK)]
+        [ProducesErrorResponseType(typeof(BaseResponseDTO))]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                var query = new GetUserByIdQuery(id);
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new BaseResponseDTO
+                {
+                    IsSuccess = false,
+                    Errors = new string[] { ex.Message }
+                });
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] CreateUserDTO model)
+        {
+            try{
+                var query = new UpdateUserByIdQuery(model);
+                var response = await _mediator.Send(query);
+                return Ok(response);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                return NotFound(new BaseResponseDTO
+                {
+                    IsSuccess = false,
+                    Errors = new string[] { ex.Message }
+                });
+            }
+        }
+        
     }
 }

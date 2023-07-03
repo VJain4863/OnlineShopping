@@ -8,4 +8,8 @@ export class Cart {
     productQuantity?:number;
     productImage?:string;
     userName?:string;
+    productCartAdd?:string;
+    productCartShipped?:string;
+    productCartPlaced?:string;
+    productCartDispatch?:string;
 }

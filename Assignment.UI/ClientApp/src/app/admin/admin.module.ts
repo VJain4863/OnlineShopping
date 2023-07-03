@@ -8,6 +8,7 @@ import { AddCategoryComponent } from './add-category.component';
 import { AddProductComponent } from './add-product.component';
 import { UsersListComponent } from './users-list.component';
 import { ProductsListComponent } from './products-list.component';
+import { AddEditUserComponent } from './add-edit-user.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { ProductsListComponent } from './products-list.component';
         AddCategoryComponent,
         AddProductComponent,
         UsersListComponent,
-        ProductsListComponent
+        ProductsListComponent,
+        AddEditUserComponent
     ]
 })
 export class AdminModule { }

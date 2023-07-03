@@ -1,6 +1,6 @@
 <div class="card">  
     <h4 class="card-header" style="background-color: lightblue; text-align: center;">Add New Product 
-       <img src="{{productLogo}}" style="width:100px;height: 100px; border-radius: 50%;"/>
+       <img src="{{productLogo}}" style="width:100px;height: 100px; border-radius: 50%; mix-blend-mode: multiply;"/>
     </h4>
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -52,10 +52,6 @@
                         <option value="Germany">Germany</option>
                         <option value="England">England</option>
                     </select>
-                    <!-- <input title="ProductCountry" type="text" formControlName="productCountry" class="form-control" [placeholder]="pCtryLbl"   [ngClass]="{ 'is-invalid': submitted && f.productCountry.errors}" />
-                    <div *ngIf="submitted && f.productCountry.errors" class="invalid-feedback">
-                        <div *ngIf="f.productCountry.errors.required">Product Country is required</div>
-                    </div> -->
                 </div>
                 <div class="mb-3 col">
                     <label class="form-label">ProductCategory</label>
@@ -64,13 +60,9 @@
                         <option selected disabled value="none">Select category</option>
                         <option *ngFor="let category of categories" value="{{category.categoryName}}"> {{category.categoryName}} || {{category.categoryDescription}} </option>
                     </select>
-                    <!-- <input title="ProductCategory" type="text" formControlName="productCategory" class="form-control" [placeholder]="pCategoryLbl"  [ngClass]="{ 'is-invalid': submitted && f.productCategory.errors }" /> -->
-                    <!-- <div *ngIf="submitted && f.productCategory.errors" class="invalid-feedback">
-                        <div *ngIf="f.productCategory.errors.required">Product Category is required</div>
-                    </div>  -->
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="text-align: center; margin-top: 2%;">
                 <button type="submit" [disabled]="submitting" class="btn btn-primary">
                     <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
                     Save

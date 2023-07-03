@@ -72,9 +72,9 @@ export class AdminComponent implements OnInit {
       this.cartService.getAllCart().subscribe((cartList) => {
         this.cartList = cartList.filter(x=>x.cartStatus=='Added')
         this.ordersAdded = this.cartList.length;
-        this.ordersPlaced = cartList.filter(x=>x.cartStatus=='Placed').length;
+        this.ordersPlaced = cartList.filter(x=>x.cartStatus=='Purchased').length;
         this.ordersShipped = cartList.filter(x=>x.cartStatus=='Shipped').length;
-        this.ordersDelievered = cartList.filter(x=>x.cartStatus=='Delievered').length;
+        this.ordersDelievered = cartList.filter(x=>x.cartStatus=='Dispatched').length;
       });
   }
 

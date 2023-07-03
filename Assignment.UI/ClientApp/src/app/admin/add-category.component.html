@@ -1,6 +1,6 @@
 <div class="card">  
     <h4 class="card-header" style="background-color: lightblue; text-align: center;">Add New Category 
-       <img src="{{categoryLogo}}" style="width:100px;height: 100px;"/>
+       <img src="{{categoryLogo}}" style="width:100px;height: 100px; mix-blend-mode: overlay;"/>
     </h4>
     <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -20,12 +20,12 @@
                     </div> 
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-3" style="text-align: center; margin-top: 2%;">
                 <button type="submit" [disabled]="submitting" class="btn btn-primary">
                     <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
                     Save
                 </button>
-                <a routerLink="/admin/product" class="btn btn-link">Cancel</a>
+                <a routerLink="/admin/category" class="btn btn-link">Cancel</a>
             </div>
         </form>
     </div>

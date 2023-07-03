@@ -10,7 +10,7 @@ import { CartService } from 'src/app/_services/cart.service';
   templateUrl: './cart.component.html',
 })
 export class CartComponent implements OnInit {
-
+  submitting = false;
   user:any;
   cartList?:Cart[];
   totalPrice:any;
@@ -22,25 +22,51 @@ export class CartComponent implements OnInit {
     }
 
   ngOnInit(): void {
-      this.cartService.getAllCart().subscribe((cartList) => {
-        this.cartList = cartList.filter(x=>x.cartStatus=='Added' && x.userName ==this.user.userName)
-        this.calculateTotal(this.cartList.length , this.cartList);
-      });
-    }
+      this.GetAllCartList();
+  }
 
-    calculateTotal(cartLength:number , listCart:Cart[]):void{
-      this.totalPrice = 0;
-      for (let i = 0 ; i < cartLength;++i) {
-          this.totalPrice = this.totalPrice + listCart[i].productPrice;
+  calculateTotal(cartLength:number , listCart:Cart[]):void{
+    this.totalPrice = 0;
+    for (let i = 0 ; i < cartLength;++i) {
+        this.totalPrice = this.totalPrice + listCart[i].productPrice;
+    }
+  }
+    
+  entirePlaceOrder(){
+    console.log("All Order is placed")
+  }
+  singlePlaceOrder(cartDetail:Cart):any{
+    this.submitting = true;
+    console.log("Status is ", cartDetail);
+    this.cartService.updateCart(cartDetail).subscribe({
+      next: () => {
+          this.alertService.success('Congrats!! you have successfully placed order', { keepAfterRouteChange: true });
+          this.router.navigateByUrl('/order');
+      },
+      error: (error: any) => {
+          this.alertService.error(error);
+          this.submitting = false;
       }
-    }
+    });
+  }
     
-    entirePlaceOrder(){
-      console.log("All Order is placed")
-    }
+  delete(id: number) {  
+    var ans = confirm("Do you want to remove product with Id: " + id + " from the cart");  
+    if (ans) {  
+        this.cartService.delete(id).subscribe((data) => {  
+            this.GetAllCartList();
+        }, error => console.error(error))  
+    }  
+  } 
 
-    singlePlaceOrder(productId:any):any{
-      console.log("Single order placed", productId);
-    }
+  GetAllCartList():void {
+    this.cartService.getAllCart().subscribe((cartList) => {
+      this.cartList = cartList.filter(x=>x.cartStatus=='Added' && x.userName ==this.user.userName)
+      this.calculateTotal(this.cartList.length , this.cartList);
+    });
+  }
+
+  changeStatus(cartDetail:Cart){
     
+  }
 }

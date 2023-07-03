@@ -6,6 +6,7 @@ import { ItemMobileComponent } from './item-mobile.component';
 import { ItemElectronicsComponent } from './item-electronics.component';
 import { ItemRoutingModule } from './item-routing.component';
 import { ItemComputerComponent } from './item-computer.component';
+import { ItemFurnitureComponent } from './item-furniture.component';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { ItemComputerComponent } from './item-computer.component';
       ItemClothesComponent,
       ItemMobileComponent,
       ItemElectronicsComponent,
-      ItemComputerComponent
+      ItemComputerComponent,
+      ItemFurnitureComponent
     ]
 })
 export class ItemModule { }

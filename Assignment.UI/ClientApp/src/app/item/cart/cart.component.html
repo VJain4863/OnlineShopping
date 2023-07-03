@@ -16,7 +16,10 @@
         <td>{{list.productName}}</td>
         <td>{{list.productCategory}}</td>
         <td>{{list.productPrice |currency:'INR'}}</td>
-        <td><button (click)="singlePlaceOrder(list.productId)"> Order Now</button></td>
+        <td>
+          <a [routerLink]="" (click)="singlePlaceOrder(list)" class="btn btn-sm btn-danger mb-2" style="margin-right: 10px;"><i class="glyphicon glyphicon-ok"></i> Order Now </a>
+          <a [routerLink]="" (click)="delete(list.id!)" class="btn btn-sm btn-danger mb-2"><i class="glyphicon glyphicon-trash"></i> Remove from Cart </a>
+        </td>
       </tr>   
     </tbody>
 </table>

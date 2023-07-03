@@ -73,20 +73,16 @@ export class ItemMobileComponent implements OnInit {
     cartAdd(product:Product):any{
       console.log(product.id);
       this.cartService.registerCart(product, this.user.userName)
-            .subscribe({
-                next: () => {
-                    this.alertService.success('Cart detail saved', { keepAfterRouteChange: true });
-                    this.router.navigateByUrl('/cart');
-                },
-                error: (error: any) => {
-                    this.alertService.error(error);
-                    //this.submitting = false;
-                }
-            })
-    }
-
-    test(){
-      console.log("Success");
+        .subscribe({
+          next: () => {
+            this.alertService.success('Cart detail saved', { keepAfterRouteChange: true });
+            this.router.navigateByUrl('/cart');
+          },
+          error: (error: any) => {
+            this.alertService.error(error);
+            //this.submitting = false;
+          }
+        })
     }
   
 }

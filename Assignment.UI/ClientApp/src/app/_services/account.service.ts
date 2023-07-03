@@ -74,4 +74,17 @@ export class AccountService {
         return this.http.get<User[]>(`${environment.apiUrl}/api/User`);
     }
 
+    public delete(id: number) {
+        return this.http.delete<User[]>(`${environment.apiUrl}/api/User/${id}`);
+    }
+
+    public update(user:User) {
+        console.log(user);
+        return this.http.put<User[]>(`${environment.apiUrl}/api/User`, user);
+    }
+
+    public getById(id: number) {
+        return this.http.get<User[]>(`${environment.apiUrl}/api/User/${id}`);
+    }
+
 }   

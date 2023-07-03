@@ -1,7 +1,7 @@
 <div class="panel panel-info">
-  <div class="panel-heading">
-    <span>Electronics Lists</span>
-  </div>
+    <div class="panel-heading">
+      <span>Furniture Lists</span>
+    </div>
 </div>
 
 <span *ngFor="let x of productList,let y=index">
@@ -18,6 +18,9 @@
           </div>
           <div class="panel-footer">
             <button type="submit"(click)="cartAdd(productList[y][0])">Add to Cart</button>
+            <!-- <button (onClick)="incrementValue(productList[y][0].id)">+</button>
+            <input >
+            <button (onClick)="decrementValue(productList[y][0].id)">-</button> -->
           </div>
         </div>
       </div>

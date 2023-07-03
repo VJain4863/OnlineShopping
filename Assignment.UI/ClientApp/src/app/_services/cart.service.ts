@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Cart } from '../_models/cart';
 import { environment } from 'src/environments/environment';
-import { AccountService } from './account.service';
 import { formatDate } from '@angular/common';
 import { Product } from '../_models/product';
 
@@ -13,8 +11,7 @@ import { Product } from '../_models/product';
 export class CartService {
     user:any;
     cart:Cart = new Cart();
-    constructor(private http: HttpClient, private acc:AccountService) { 
-        this.user= this.acc.userValue;
+    constructor(private http: HttpClient) { 
     }    
     
     public getAllCart() {
@@ -25,8 +22,12 @@ export class CartService {
         return this.http.get<Cart[]>(`${environment.apiUrl}/api/Cart/`+id);
     }
 
+    public delete(id: number) {
+        return this.http.delete<Cart[]>(`${environment.apiUrl}/api/Cart/${id}`);
+    }
+
     public registerCart(product: Product, userName:string) : Observable<any> {
-        
+        var ticketDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
         console.log("Product Id", product.id);
         this.cart.productCategory = product.productCategory;
         this.cart.productPrice = product.productPrice?.toString();
@@ -36,28 +37,31 @@ export class CartService {
         this.cart.productImage = product.productImage;
         this.cart.userName = userName;
         this.cart.productId = product.id;
-        console.log(this.cart);
+        this.cart.productCartAdd = ticketDate.toString();
+        this.cart.productCartPlaced = ticketDate.toString();
+        this.cart.productCartShipped = ticketDate.toString();
+        this.cart.productCartDispatch = ticketDate.toString();
         return this.http.post<any>(`${environment.apiUrl}/api/Cart`, this.cart);
     }
-    public deleteCart(id:number):Observable<number>{
-        console.log("please confirm",id);
-        console.log('${environment.apiUrl}/api/Cart/${id}');
-        return this.http.delete<number>(`${environment.apiUrl}/api/Cart/`+id);
-        //return this.http.delete<number>(`${environment.apiUrl}/api/Cart`,{params:{id}});
-    }
-    public updateCart(cartDetail:Cart, id: number):Observable<any> {
+
+    public updateCart(cartDetail:Cart):Observable<any> {
+        var ticketDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
         this.cart.id = cartDetail.id;
         this.cart.productCategory = cartDetail.productCategory;
         this.cart.productPrice = cartDetail.productPrice?.toString();
         this.cart.productName = cartDetail.productName;
-        this.cart.cartStatus = (cartDetail.cartStatus =="Added") ? "Shipped":"Delievered";
         this.cart.productQuantity = 1;
         this.cart.productImage = cartDetail.productImage;
         this.cart.userName = cartDetail.userName;
-        this.cart.productId = cartDetail.id;
-        // console.log("Inside service",data,"for product Id",id);
-        console.log("Vlue now",this.cart);
-        return this.http.put<any>(`${environment.apiUrl}/api/Cart?id=${id}`,this.cart);
+        this.cart.productId = cartDetail.productId;
+        this.cart.productCartAdd = cartDetail.productCartAdd;
+        this.cart.productCartPlaced = ticketDate.toString();
+        this.cart.productCartShipped = ticketDate.toString();
+        this.cart.productCartDispatch = ticketDate.toString();
+        if(cartDetail.cartStatus == "Added") { this.cart.cartStatus = "Purchased";}
+        if(cartDetail.cartStatus == "Purchased") { this.cart.cartStatus = "Shipped";}
+        if(cartDetail.cartStatus == "Shipped") { this.cart.cartStatus = "Dispatched";}
+        return this.http.put<Cart[]>(`${environment.apiUrl}/api/Cart`,this.cart);
     }
  
 }

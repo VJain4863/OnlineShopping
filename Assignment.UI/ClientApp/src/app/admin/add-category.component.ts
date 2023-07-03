@@ -42,19 +42,6 @@ export class AddCategoryComponent implements OnInit {
             categoryName: ['', Validators.required],
             categoryDescription: ['', Validators.required]
         });
-    
-        this.title = 'Add Project';
-        if (this.id) {
-            // edit mode
-            this.title = 'Edit Project';
-            this.loading = true;
-            this.categoryService.getById(this.id)
-                .pipe(first())
-                .subscribe(x => {
-                    this.form.patchValue(x);
-                    this.loading = false;
-                });
-        }
     }
 
     // convenience getter for easy access to form fields
@@ -71,7 +58,7 @@ export class AddCategoryComponent implements OnInit {
         this.categoryService.registerCategory(this.form.value)
             .subscribe({
                 next: () => {
-                    this.alertService.success('Category detail saved', { keepAfterRouteChange: true });
+                    this.alertService.success(' New Category Added', { keepAfterRouteChange: true });
                     this.router.navigateByUrl('/admin');
                 },
                 error: (error: any) => {

@@ -30,15 +30,28 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit(): void 
   {
-    this.acc.getAllUsers().subscribe((users) => {
-        this.users = users.filter(x=>x.role=='User')
-        this.usersCount = this.users.length;
-        this.maleCount = this.users.filter(x=>x.gender=='Male').length;
-        this.femaleCount = this.users.filter(x=>x.gender=='Female').length;
-    }); 
+    this.GetAllUsers(); 
   }
 
   editUser(userName:any):any{
 
+  }
+
+  delete(id: number) {  
+    var ans = confirm("Do you want to delete user with Id: " + id);  
+    if (ans) {  
+        this.acc.delete(id).subscribe((data) => {  
+            this.GetAllUsers();
+        }, error => console.error(error))  
+    }  
+  } 
+
+  GetAllUsers():void{
+    this.acc.getAllUsers().subscribe((users) => {
+      this.users = users.filter(x=>x.role=='User')
+      this.usersCount = this.users.length;
+      this.maleCount = this.users.filter(x=>x.gender=='Male').length;
+      this.femaleCount = this.users.filter(x=>x.gender=='Female').length;
+  });
   }
 }

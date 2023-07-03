@@ -6,6 +6,7 @@ import { AddCategoryComponent } from './add-category.component';
 import { LayoutAdminComponent } from './layout-admin.component';
 import { UsersListComponent } from './users-list.component';
 import { ProductsListComponent } from './products-list.component';
+import { AddEditUserComponent } from './add-edit-user.component';
 
 const routes: Routes = [
     {
@@ -15,8 +16,8 @@ const routes: Routes = [
             { path: 'product', component: AddProductComponent },
             {path :'category', component:AddCategoryComponent},
             {path :'users', component:UsersListComponent},
-            {path :'pList', component:ProductsListComponent}
-        //     { path: 'edit/:id', component: AddProjectComponent },
+            {path :'pList', component:ProductsListComponent},
+            { path: 'edit/:id', component: AddEditUserComponent },
         //     // { path: ':pId', component:TrackerComponent}
         //     { path: ':pId',loadChildren: trackerModule, canActivate: [AuthGuard] }
          ]

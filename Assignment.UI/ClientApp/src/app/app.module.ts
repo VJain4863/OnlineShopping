@@ -12,6 +12,7 @@ import { CarosuelComponent } from './carosuel/carosuel.component';
 import { LayoutAdminComponent } from "./admin/layout-admin.component";
 import { LayoutItemComponent } from "./item/layout-item.component";
 import { CartComponent } from "./item/cart/cart.component";
+import { OrderComponent } from "./item/order/order.component";
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { CartComponent } from "./item/cart/cart.component";
         CarosuelComponent,
         LayoutAdminComponent,
         LayoutItemComponent,
-        CartComponent
+        CartComponent,
+        OrderComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
